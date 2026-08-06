@@ -1,0 +1,31 @@
+Package: burden
+Title: Sample-Size-Adjusted Differential Expression Burden for Single-Cell Data
+Version: 0.1.0
+Authors@R: person("Ethan", "Fenton", email = "ethanfenton27@gmail.com", role = c("aut", "cre"))
+Description: Estimates a sample-size-adjusted "burden" metric for
+    differential expression (DE) results from single-cell data, addressing
+    the fact that cell types with more cells tend to show more significant
+    DE genes for reasons of statistical power alone. Works by downsampling
+    cells per cell type, refitting DE at a range of cell counts, modeling
+    the number of DEGs as a function of cell count (optionally with a
+    spline/GAM term, with an automatic test for whether nonlinearity is
+    needed), assessing concordance of downsampled DE calls against the
+    full-data DE call, testing whether a pooled (across cell type) or
+    cell-type-specific model is warranted, and predicting the expected DEG
+    count at a common reference cell count. Also supports empirical
+    FDR-calibrated per-sample-size significance thresholds as an
+    alternative to a fixed alpha. DE backends are pluggable, with built-in
+    wrappers for Wilcoxon rank-sum, edgeR, and DESeq2.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Depends: R (>= 4.1.0)
+Imports:
+    mgcv,
+    stats
+Suggests:
+    edgeR,
+    DESeq2,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.0.0
