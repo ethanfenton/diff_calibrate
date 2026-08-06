@@ -50,6 +50,29 @@ starting points, not because alternatives were ruled out.
    fully pooled `degs ~ s(n)`, via LRT/AIC. A middle ground worth using when
    cell types are sparse: cell type as a random effect (`s(cell_type,
    bs="re")` in mgcv) — partial pooling instead of an all-or-nothing choice.
+
+   **Default is `pooled`, not `auto`.** It is a reasonable working
+   assumption that cell count affects detected DEG count in a broadly
+   similar way regardless of cell type (same DE method, same underlying
+   statistical-power mechanics), so pooling all cell types' downsampling
+   replicates into one DEGs~n curve by default is both defensible and gives
+   the model far more data per fit than any single cell type could supply
+   alone. Letting `pooling = "auto"` pick per-dataset via the LRT sounds
+   more rigorous but is not the safer default: with the modest replicate
+   counts (`k`) typical of this pipeline, a single noisy LRT can
+   false-positive into recommending `shared_shape`/`stratified` even when
+   the true relationship is shared across cell types — this was observed
+   directly during development (a `test_pooling()` unit test using
+   identically-generated data for two "cell types" intermittently
+   recommended `shared_shape` depending on the random draw). `stratified`
+   also compounds with the extrapolation caveat above: a per-cell-type
+   model fit to few points is exactly the situation where predicting at a
+   reference n outside that cell type's own range is least trustworthy.
+   `pooling = "auto"`/`"stratified"` remain available for users who want
+   per-cell-type flexibility and are prepared for the added noise;
+   `pooling_test` is always computed and returned regardless of which mode
+   is used, so `"auto"`'s recommendation is visible even under the
+   `"pooled"` default.
 7. **Burden metric.** Burden for a cell type = model-predicted DEG count at a
    *reference* cell count (default: median cells-per-treatment-arm across all
    cell types in the dataset; user-overridable), evaluated on the cell type's

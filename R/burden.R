@@ -15,8 +15,21 @@
 #'   user function following the [de_backends] contract.
 #' @param model_type One of `"auto"`, `"spline"`, `"linear"` — see
 #'   [fit_deg_model()].
-#' @param pooling One of `"auto"` (default; run [test_pooling()] and use its
-#'   recommendation), or force `"pooled"`, `"shared_shape"`, `"stratified"`.
+#' @param pooling One of `"pooled"` (default: a single DEGs~n curve fit
+#'   across all cell types, on the assumption that cell count affects
+#'   detected DEG count similarly regardless of cell type), `"auto"` (run
+#'   [test_pooling()] and use its LRT-based recommendation instead), or
+#'   force `"shared_shape"`/`"stratified"` (per-cell-type curves). `"auto"`
+#'   and `"stratified"` trade the pooled default's stability for
+#'   flexibility: each cell type's own model is fit to far fewer
+#'   downsampling replicates than the pooled fit, so it is noisier, and
+#'   `"auto"`'s per-dataset LRT can itself false-positive into
+#'   `shared_shape`/`stratified` on a single noisy comparison (observed
+#'   during development, see `docs/DESIGN.md`) — which is why pooling is
+#'   not auto-selected by default. [test_pooling()]'s result is always
+#'   computed and returned as `pooling_test` regardless of this argument, so
+#'   you can inspect what `"auto"` *would* have chosen without switching to
+#'   it.
 #' @param adaptive_alpha If `TRUE` (default), calibrate alpha(n) per cell
 #'   type via [calibrate_alpha()] (empirical FDR calibration against
 #'   label-permuted null runs) and use it in place of `alpha` when counting
@@ -53,7 +66,7 @@
 #' @export
 calculate_burden <- function(data, de_fun,
                               model_type = c("auto", "spline", "linear"),
-                              pooling = c("auto", "pooled", "shared_shape", "stratified"),
+                              pooling = c("pooled", "auto", "shared_shape", "stratified"),
                               adaptive_alpha = TRUE,
                               alpha = 0.05,
                               reference_n = NULL,
