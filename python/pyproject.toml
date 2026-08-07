@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "burden"
+version = "0.1.0"
+description = "Sample-size-adjusted differential expression burden for single-cell data"
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "Ethan Fenton", email = "ethanfenton27@gmail.com" }]
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.23",
+    "pandas>=1.5",
+    "scipy>=1.9",
+    "statsmodels>=0.14",
+    "patsy>=0.5",
+]
+
+[project.optional-dependencies]
+edger = ["rpy2>=3.5"]
+deseq2 = ["pydeseq2>=0.4"]
+test = ["pytest>=7.0"]
+
+[tool.setuptools.packages.find]
+include = ["burden*"]

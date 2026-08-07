@@ -128,10 +128,16 @@ what would happen at 150.
 - Whether burden should be reported as a raw predicted DEG count, or
   normalized (e.g., by number of genes tested in that cell type, since gene
   detection also scales with cell count).
-- Python port: mirror the R API once the R implementation and defaults are
-  validated. AnnData input; scanpy for Wilcoxon; rpy2 bridge or native calls
-  for edgeR/DESeq2; pyGAM or scipy splines + statsmodels GLM for the
-  DEG~n model.
+- ~~Python port~~: done, see `python/`. Mirrors the R API and defaults
+  (quasi-Poisson identity-link count model, pooled-by-default, empirical FDR
+  calibration). Two intentional implementation differences, documented in
+  `python/README.md`: splines are `patsy`'s unpenalized natural cubic
+  regression-spline basis (`cr()`) rather than `mgcv`'s penalized smooths,
+  and nested-model comparisons use `statsmodels` GLM with `scale="X2"` and a
+  quasi-F test rather than `mgcv::gam`/`anova.gam`. edgeR is called via
+  `rpy2` (optional extra); DESeq2 uses the `pydeseq2` port rather than
+  calling R's DESeq2. Direct AnnData support (rather than requiring the
+  caller to pass raw matrices) is still open future work.
 - Concordance-based exclusion vs weighting: currently planned as a weighting
   scheme by default; revisit whether a hard minimum-n cutoff should be the
   default instead (simpler to explain, more conservative).

@@ -13,6 +13,9 @@ See [`docs/DESIGN.md`](docs/DESIGN.md) for the full methodology, rationale,
 and known caveats (in particular: extrapolation risk when a cell type is
 much smaller than the reference cell count).
 
+A Python port with the same API and defaults is available in
+[`python/`](python/README.md).
+
 ## Install
 
 ```r
