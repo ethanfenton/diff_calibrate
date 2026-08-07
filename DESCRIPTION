@@ -1,4 +1,4 @@
-Package: burden
+Package: diffcalibrate
 Title: Sample-Size-Adjusted Differential Expression Burden for Single-Cell Data
 Version: 0.1.0
 Authors@R: person("Ethan", "Fenton", email = "ethanfenton27@gmail.com", role = c("aut", "cre"))

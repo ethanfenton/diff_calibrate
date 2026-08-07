@@ -77,7 +77,7 @@ def run_downsampling(
     For a grid of per-group cell counts, draws ``k`` replicate downsamples at
     each grid point and runs ``de_fun`` on each, plus (optionally)
     ``k_permute`` label-permuted replicates per grid point for empirical null
-    calibration (see :func:`burden.adaptive_alpha.calibrate_alpha`). Always
+    calibration (see :func:`diff_calibrate.adaptive_alpha.calibrate_alpha`). Always
     also runs DE once on the full data as the reference/ground-truth result.
 
     Returns

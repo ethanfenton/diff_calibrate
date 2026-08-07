@@ -3,7 +3,7 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "burden"
+name = "diff_calibrate"
 version = "0.1.0"
 description = "Sample-size-adjusted differential expression burden for single-cell data"
 readme = "README.md"
@@ -24,4 +24,4 @@ deseq2 = ["pydeseq2>=0.4"]
 test = ["pytest>=7.0"]
 
 [tool.setuptools.packages.find]
-include = ["burden*"]
+include = ["diff_calibrate*"]

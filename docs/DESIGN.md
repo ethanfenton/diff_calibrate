@@ -1,10 +1,13 @@
-# `burden` — design notes
+# `diff_calibrate` — design notes
 
 Package for quantifying sample-size bias in single-cell differential expression
 (DE): larger cell types get more DEGs partly because they have more cells, not
-because they are biologically more affected. `burden` estimates, per cell type,
-the expected number of DEGs *after adjusting for cell count*, by downsampling,
-modeling DEGs as a function of n, and predicting at a common reference n.
+because they are biologically more affected. `diff_calibrate` (R package name:
+`diffcalibrate`) estimates, per cell type, the expected number of DEGs *after
+adjusting for cell count*, by downsampling, modeling DEGs as a function of n,
+and predicting at a common reference n. The computed quantity itself is called
+"burden" throughout the code and docs (e.g. `calculate_burden()`,
+`res$burden`) — that's the metric name, distinct from the package name.
 
 This file is a living planning document. Revisit the "future work / alternatives"
 sections periodically — several design choices below were picked as reasonable

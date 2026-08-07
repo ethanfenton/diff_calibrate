@@ -1,7 +1,7 @@
 import pandas as pd
 
-from burden.concordance import concordance, concordance_curve
-from burden.downsample import run_downsampling
+from diff_calibrate.concordance import concordance, concordance_curve
+from diff_calibrate.downsample import run_downsampling
 
 
 def _de_df(genes, pval, logfc):

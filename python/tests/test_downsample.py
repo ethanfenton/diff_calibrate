@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from burden.downsample import (
+from diff_calibrate.downsample import (
     downsample_counts,
     downsample_grid,
     n_degs,

@@ -5,8 +5,8 @@ returning columns ``gene``, ``pval``, ``padj``, ``logFC``. ``counts`` is a
 genes x cells numeric matrix (raw counts, unless the backend expects
 otherwise), ``group`` is a length-``n_cells`` array-like giving the two-level
 grouping to test. Any function following this contract can be passed as
-``de_fun`` to :func:`burden.calculate_burden` or
-:func:`burden.downsample.run_downsampling` directly; the wrappers below are
+``de_fun`` to :func:`diff_calibrate.calculate_burden` or
+:func:`diff_calibrate.downsample.run_downsampling` directly; the wrappers below are
 convenience implementations for common methods.
 """
 
@@ -110,7 +110,7 @@ def de_edger(counts, group, **kwargs) -> pd.DataFrame:
 
     Thin wrapper calling out to R's edgeR (``estimateDisp`` + ``glmQLFit`` +
     ``glmQLFTest``) for two-group comparisons. Requires ``rpy2`` and an R
-    installation with the ``edgeR`` Bioconductor package (extra: ``burden[edger]``).
+    installation with the ``edgeR`` Bioconductor package (extra: ``diff_calibrate[edger]``).
     """
     try:
         import rpy2.robjects as ro
@@ -119,7 +119,7 @@ def de_edger(counts, group, **kwargs) -> pd.DataFrame:
     except ImportError as e:  # pragma: no cover
         raise ImportError(
             "de_edger() requires rpy2 with a working R + edgeR installation. "
-            "Install via `pip install burden[edger]` and install edgeR in R "
+            "Install via `pip install diff_calibrate[edger]` and install edgeR in R "
             "via BiocManager::install('edgeR')."
         ) from e
 
@@ -157,7 +157,7 @@ def de_deseq2(counts, group, **kwargs) -> pd.DataFrame:
     """DESeq2-style Wald test DE (via pydeseq2).
 
     Thin wrapper around ``pydeseq2`` for two-group comparisons. Requires
-    ``pydeseq2`` (extra: ``burden[deseq2]``). Substantially slower than
+    ``pydeseq2`` (extra: ``diff_calibrate[deseq2]``). Substantially slower than
     :func:`de_wilcoxon`; expect longer runtimes inside the downsampling loop.
     """
     try:
@@ -165,7 +165,7 @@ def de_deseq2(counts, group, **kwargs) -> pd.DataFrame:
         from pydeseq2.ds import DeseqStats
     except ImportError as e:  # pragma: no cover
         raise ImportError(
-            "de_deseq2() requires pydeseq2. Install via `pip install burden[deseq2]`."
+            "de_deseq2() requires pydeseq2. Install via `pip install diff_calibrate[deseq2]`."
         ) from e
 
     counts = np.asarray(counts, dtype=float)

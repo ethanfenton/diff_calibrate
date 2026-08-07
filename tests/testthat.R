@@ -1,4 +1,4 @@
 library(testthat)
-library(burden)
+library(diffcalibrate)
 
-test_check("burden")
+test_check("diffcalibrate")

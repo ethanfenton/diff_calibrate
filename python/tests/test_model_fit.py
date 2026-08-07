@@ -3,9 +3,9 @@ import warnings
 import numpy as np
 import pytest
 
-from burden.model_fit import fit_deg_model, predict_degs, quasi_f_test
-from burden.model_fit import test_nonlinearity as run_nonlinearity_test
-from burden.model_fit import test_pooling as run_pooling_test
+from diff_calibrate.model_fit import fit_deg_model, predict_degs, quasi_f_test
+from diff_calibrate.model_fit import test_nonlinearity as run_nonlinearity_test
+from diff_calibrate.model_fit import test_pooling as run_pooling_test
 
 pytestmark = pytest.mark.filterwarnings("ignore")
 

@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from burden import calculate_burden
+from diff_calibrate import calculate_burden
 
 pytestmark = pytest.mark.filterwarnings("ignore")
 
